@@ -9,9 +9,11 @@ import CompReturnArray from './components/CompReturnArray'
 import SimpleHoc from './hoc/simpleHoc'
 import TestWrapperHoc from './components/testWrapperHOC'
 
-import Hero from './components/Hero'
+import Hero from './components/errorHandelingTest/Hero'
 import ErrorBoundaryWrapper from './hoc/ErrorBoundaryWrapper'
-import Hero2 from './components/Hero2'
+import Hero2 from './components/errorHandelingTest/Hero2'
+
+import AwaitAndPromise from './components/awaitÂndPromise/awaitAndPromise'
 
 
 class App extends Component {
@@ -34,11 +36,14 @@ class App extends Component {
     return (
         <SimpleHoc>
             <InfoViewer {...this.state} onChangeHandler={this.onChangeHandler}/>
+
             <UpdateTestClass age={this.state.age}/>
             <UpdateTestFunct {...this.state}/>
             <UpdateTestFunct2 {...this.state} />
             <UpdateTestPureComp age={this.state.age}/>
+
             <br/>
+
             <CompReturnArray />
             <TestWrapperHoc {...this.state}/>
 
@@ -53,12 +58,15 @@ class App extends Component {
             </ErrorBoundaryWrapper>
 
             <ErrorBoundaryWrapper>
-                <Hero heroName={'Joker'}/>
+                <Hero heroName={'Joke'}/>
             </ErrorBoundaryWrapper>
             <hr/>
 
-            <Hero2 heroName={'Catman'}/>
+            <Hero2 heroName={'Catma'}/>
             <Hero2 heroName={'Spiderman'}/>
+            <hr/>
+
+            <AwaitAndPromise/>
 
         </SimpleHoc>
     );

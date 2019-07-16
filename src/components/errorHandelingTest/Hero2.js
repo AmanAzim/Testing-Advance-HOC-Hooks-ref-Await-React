@@ -1,5 +1,5 @@
 import React from 'react';
-import WithErrorHandler from '../hoc/withErrorHandler'
+import WithErrorHandler from '../../hoc/withErrorHandler'
 
 const Hero2 = ({heroName}) => {
 
