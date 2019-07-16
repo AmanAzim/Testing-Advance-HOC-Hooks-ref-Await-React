@@ -8,6 +8,8 @@ import UpdateTestPureComp from './components/UpdateTestPureComp'
 import CompReturnArray from './components/CompReturnArray'
 import SimpleHoc from './hoc/simpleHoc'
 import TestWrapperHoc from './components/testWrapperHOC'
+import Hero from './components/Hero'
+import ErrorBoundaryWrapper from './hoc/ErrorBoundaryWrapper'
 
 class App extends Component {
 
@@ -36,6 +38,21 @@ class App extends Component {
             <br/>
             <CompReturnArray />
             <TestWrapperHoc {...this.state}/>
+
+            <hr/>
+
+            <ErrorBoundaryWrapper>
+                <Hero heroName={'Batman'}/>
+            </ErrorBoundaryWrapper>
+
+            <ErrorBoundaryWrapper>
+                <Hero heroName={'Superman'}/>
+            </ErrorBoundaryWrapper>
+
+            <ErrorBoundaryWrapper>
+                <Hero heroName={'Joker'}/>
+            </ErrorBoundaryWrapper>
+
         </SimpleHoc>
     );
   }

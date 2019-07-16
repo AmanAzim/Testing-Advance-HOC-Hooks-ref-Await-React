@@ -6,10 +6,11 @@ const style={
   color:'green'
 };
 
-const TestWrapperHoc = () => {
+const TestWrapperHoc = (props) => {
+    //This props will not reach this component unless we return (props)={} in the wrapper HOC
     return (
         <div>
-            
+            <p>I am *TestWrapperHoc* my name:{props.name}</p>
         </div>
     );
 };
