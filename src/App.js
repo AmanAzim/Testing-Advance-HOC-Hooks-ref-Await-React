@@ -8,8 +8,11 @@ import UpdateTestPureComp from './components/UpdateTestPureComp'
 import CompReturnArray from './components/CompReturnArray'
 import SimpleHoc from './hoc/simpleHoc'
 import TestWrapperHoc from './components/testWrapperHOC'
+
 import Hero from './components/Hero'
 import ErrorBoundaryWrapper from './hoc/ErrorBoundaryWrapper'
+import Hero2 from './components/Hero2'
+
 
 class App extends Component {
 
@@ -52,6 +55,10 @@ class App extends Component {
             <ErrorBoundaryWrapper>
                 <Hero heroName={'Joker'}/>
             </ErrorBoundaryWrapper>
+            <hr/>
+
+            <Hero2 heroName={'Catman'}/>
+            <Hero2 heroName={'Spiderman'}/>
 
         </SimpleHoc>
     );
