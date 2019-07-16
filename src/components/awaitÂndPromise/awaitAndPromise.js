@@ -13,9 +13,16 @@ class AwaitAndPromise extends Component {
         doneBy2:'',
         condition2:'',
         author2:'',
-    }
 
-    testPromise=()=>{
+        job3:'Undone',
+        doneBy3:'',
+        condition3:'',
+        author3:'',
+
+        ticket:''
+    };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    testThen=()=>{
         const doJob=new Promise((resolve, reject)=>{
             setTimeout(()=>{
                 //resolve(this.setState({job:'Done'}));
@@ -44,7 +51,7 @@ class AwaitAndPromise extends Component {
         });
         this.setState({author:'Aman'});//this code will execute immediately without waiting for the promise to resolve and the promise will do its work sometime in future
     };
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //"await" can be used only in a "async" function !!!!
     testAwait=async()=>{
@@ -77,6 +84,49 @@ class AwaitAndPromise extends Component {
 
         this.setState({author2:'Rumman'});//This code will execute only after finishing all "await" codes
     };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    testAwait2=async()=>{
+        const doJob=new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                resolve('Done');
+            },3000);
+        });
+        const jobDoneBy=new Promise(resolve=>{
+            setTimeout(()=>{
+                resolve('Await all([])');
+            },1000);
+        });
+        const jobCondition=new Promise(resolve => {
+                setTimeout(()=>{
+                    resolve('Clean');
+                },1000);
+        });
+
+        const [doJob_ResolveValue, jobDoneBy_ResolveValue, jobCondition_ResolveValue]=await Promise.all([doJob, jobDoneBy, jobCondition]);
+
+        //now all the states will be updated on the same time as we wait for all the promises to resolve together
+        this.setState({job3:doJob_ResolveValue});
+        this.setState({doneBy3:jobDoneBy_ResolveValue});
+        this.setState({condition3:jobCondition_ResolveValue});
+
+        this.setState({author3:'Azim'});
+    };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    testAwaitWithError=async()=>{
+        const myTicket=new Promise((resolve, reject)=>{
+            //resolve('Ticket available');
+            reject('Sorry No ticket');
+        });
+
+        let myTicket_ResolveValue='';
+        try {
+            myTicket_ResolveValue=await myTicket;
+        }catch (e) {
+            myTicket_ResolveValue=e;
+        }
+        this.setState({ticket:myTicket_ResolveValue});
+    };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     render() {
         /* this.testPromise();
@@ -88,7 +138,7 @@ class AwaitAndPromise extends Component {
         return (
             <SimpleHoc>
                  <div>
-                    <button onClick={()=>this.testPromise()}>Chick to test Promise with *then()*</button>
+                    <button onClick={()=>this.testThen()}>Chick to test Promise with *then()*</button>
                     <p>The job is: {this.state.job }</p>
                     <p>Done by: {this.state.doneBy}</p>
                     <p>Job condition: {this.state.condition}</p>
@@ -100,6 +150,17 @@ class AwaitAndPromise extends Component {
                     <p>Done by: {this.state.doneBy2}</p>
                     <p>Job condition: {this.state.condition2}</p>
                     <p>Author: {this.state.author2}</p>
+                </div>
+                 <div>
+                    <button onClick={()=>this.testAwait2()}>Chick to test Promise with Await with all await array</button>
+                    <p>The job is: {this.state.job3}</p>
+                    <p>Done by: {this.state.doneBy3}</p>
+                    <p>Job condition: {this.state.condition3}</p>
+                    <p>Author: {this.state.author3}</p>
+                </div>
+                <div>
+                    <button onClick={()=>this.testAwaitWithError()}>Chick to test Promise with Await with error handler</button>
+                    <p>The ticket is: {this.state.ticket}</p>
                 </div>
             </SimpleHoc>
         );
