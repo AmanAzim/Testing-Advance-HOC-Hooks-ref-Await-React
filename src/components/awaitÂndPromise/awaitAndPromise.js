@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
 import SimpleHoc from '../../hoc/simpleHoc'
+import '../../App.css'
+import injectSheet from 'react-jss'
+
+const style={
+    gridContainer:{
+        display: 'grid',
+        gridTemplateColumns: 'auto auto auto auto'
+    }
+};
 
 class AwaitAndPromise extends Component {
 
@@ -136,17 +145,17 @@ class AwaitAndPromise extends Component {
          unless the function is doing "this.setState()" inside a "Promise" */
 
         return (
-            <SimpleHoc>
-                 <div>
+            <SimpleHoc className={style.gridContainer}>
+                 <div className={style.gridItems}>
                     <button onClick={()=>this.testThen()}>Chick to test Promise with *then()*</button>
-                    <p>The job is: {this.state.job }</p>
+                    <p>The job is: {this.state.job}</p>
                     <p>Done by: {this.state.doneBy}</p>
                     <p>Job condition: {this.state.condition}</p>
                  <p>Author: {this.state.author}</p>
                 </div>
                 <div>
                     <button onClick={()=>this.testAwait()}>Chick to test Promise with Await</button>
-                    <p>The job is: {this.state.job2 }</p>
+                    <p>The job is: {this.state.job2}</p>
                     <p>Done by: {this.state.doneBy2}</p>
                     <p>Job condition: {this.state.condition2}</p>
                     <p>Author: {this.state.author2}</p>
@@ -167,4 +176,4 @@ class AwaitAndPromise extends Component {
     }
 }
 
-export default AwaitAndPromise;
+export default injectSheet(style)(AwaitAndPromise);
