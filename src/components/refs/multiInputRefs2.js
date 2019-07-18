@@ -55,6 +55,8 @@ class MultiInputRefs2 extends Component {
        this.inputElemRef1.current.focus();
     }
 
+
+
     render() {
         return (
             <div>

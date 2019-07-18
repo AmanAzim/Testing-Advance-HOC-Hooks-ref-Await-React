@@ -18,6 +18,12 @@ import AwaitAndPromise from './components/awaitÂndPromise/awaitAndPromise'
 
 class App extends Component {
 
+  constructor(){
+      super();
+      this.appBodyRef=React.createRef();
+      this.bottomRef=React.createRef();
+  }
+
   state={
     name:'Aman',
     age:31
@@ -30,44 +36,70 @@ class App extends Component {
     if(event.target.name==='age'){
        this.setState({age:event.target.value})
     }
-  }
+  };
+
+  goToBottom=()=>{
+      this.bottomRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+      });
+  };
+
+ //we must use "componentDidUpdate" with it
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+      return  this.appBodyRef.current.scrollHeight-this.appBodyRef.current.scrollTop;
+    };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      console.log('snapshot',snapshot)
+       // snapshot.focus()
+        this.appBodyRef.current.scrollTop=this.appBodyRef.current.scrollHeight-snapshot
+    }
+
 
   render() {
     return (
         <SimpleHoc>
-            <InfoViewer {...this.state} onChangeHandler={this.onChangeHandler}/>
-
-            <UpdateTestClass age={this.state.age}/>
-            <UpdateTestFunct {...this.state}/>
-            <UpdateTestFunct2 {...this.state} />
-            <UpdateTestPureComp age={this.state.age}/>
-
-            <br/>
-
-            <CompReturnArray />
-            <TestWrapperHoc {...this.state}/>
-
+            <button onClick={()=>setTimeout(()=>this.forceUpdate(),2000)}>Force Update</button>
+            <button onClick={this.goToBottom}>Go to Bottom</button>
             <hr/>
+            <div ref={this.appBodyRef}>
+                <InfoViewer {...this.state} onChangeHandler={this.onChangeHandler}/>
 
-            <ErrorBoundaryWrapper>
-                <Hero heroName={'Batman'}/>
-            </ErrorBoundaryWrapper>
+                <UpdateTestClass age={this.state.age}/>
+                <UpdateTestFunct {...this.state}/>
+                <UpdateTestFunct2 {...this.state} />
+                <UpdateTestPureComp age={this.state.age}/>
 
-            <ErrorBoundaryWrapper>
-                <Hero heroName={'Superman'}/>
-            </ErrorBoundaryWrapper>
+                <br/>
 
-            <ErrorBoundaryWrapper>
-                <Hero heroName={'Joke'}/>
-            </ErrorBoundaryWrapper>
-            <hr/>
+                <CompReturnArray />
+                <TestWrapperHoc {...this.state}/>
 
-            <Hero2 heroName={'Catma'}/>
-            <Hero2 heroName={'Spiderman'}/>
-            <hr/>
+                <hr/>
 
-            <AwaitAndPromise/>
+                <ErrorBoundaryWrapper>
+                    <Hero heroName={'Batman'}/>
+                </ErrorBoundaryWrapper>
 
+                <ErrorBoundaryWrapper>
+                    <Hero heroName={'Superman'}/>
+                </ErrorBoundaryWrapper>
+
+                <ErrorBoundaryWrapper>
+                    <Hero heroName={'Joke'}/>
+                </ErrorBoundaryWrapper>
+                <hr/>
+
+                <Hero2 heroName={'Catma'}/>
+                <Hero2 heroName={'Spiderman'}/>
+                <hr/>
+
+                <AwaitAndPromise myref={this.bottomCompRef}/>
+
+                <hr/>
+                <p ref={this.bottomRef}>I am Bottom</p>
+            </div>
         </SimpleHoc>
     );
   }

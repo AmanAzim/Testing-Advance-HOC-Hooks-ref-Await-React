@@ -144,10 +144,11 @@ class AwaitAndPromise extends Component {
          because this function does "this.setState()" outside of a promise.
          Inside "render()" we cannot "this.setState()" or call a function that dose it
          unless the function is doing "this.setState()" inside a "Promise" */
-
+        const {classes}=this.props; //any style injected by Jss will have the name "classes" as object
+        //console.log('style',classes)
         return (
-            <SimpleHoc className={style.gridContainer}>
-                 <div className={style.gridItems}>
+            <SimpleHoc className={classes.gridContainer}>
+                 <div >
                     <button onClick={()=>this.testThen()}>Chick to test Promise with *then()*</button>
                     <p>The job is: {this.state.job}</p>
                     <p>Done by: {this.state.doneBy}</p>
