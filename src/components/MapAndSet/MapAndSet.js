@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 //https://javascript.info/map-set-weakmap-weakset
 
 class MapAndSet extends Component {
-
+    //Map mainly used save an object as key for a value and to be able to add key of different types in the same structure
     testMap=()=>{
         let map1=new Map();
 
@@ -62,9 +62,10 @@ class MapAndSet extends Component {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         let arr=[...map1];
         console.log('arr from map:',arr);
+        console.log('raw map1:',map1);
         //////////////////////////////////////////
         let o={};
-        o[1]='a'
+        o[1]='a'// {1:'a'}
         console.log('o=',o)
     };
 
@@ -80,8 +81,10 @@ class MapAndSet extends Component {
         map.forEach((val, key, map)=>{
             console.log('mapfromArr with unique entry [key, value]:', key, val)
         })
+
     };
 
+     //Map mainly used to store unique entries
     testSet=()=>{
        let set1 = new Set();
 
@@ -91,12 +94,18 @@ class MapAndSet extends Component {
 
         // visits, some users come multiple times
         set1.add(john); //it will be saved as [ { name: "John" }, { name: "John" } ] same entry one time as key and one time as value
-        set1.add(pete);
+        set1.add('1', pete); //We cannot create keys in Set it will always be same as values. in this case it will take the first entry "1" both as keay and value and will ignore "pete"
         set1.add(mary);
         set1.add(john);
         set1.add(mary);
 
+        for(let entry of set1.keys()){
+            console.log('set1 [key]:', entry)
+        }
         for(let entry of set1.values()){
+            console.log('set1 [value]:', entry)
+        }
+        for(let entry of set1.entries()){
             console.log('set1 [key, value]:', entry)
         }
         /////////////////////////////////////////////
@@ -105,13 +114,35 @@ class MapAndSet extends Component {
         set2.forEach((value, valueAgain, set) => {
            console.log('set2', value)
         });
+        console.log('Raw set1:',set2);
     };
+
+    exerciseSet=()=>{
+        let values = ["Hare", "Krishna", "Hare", "Krishna",
+        "Krishna", "Krishna", "Hare", "Hare", ":-O"];
+
+        let set=new Set(values);
+        let arr=Array.from(set);
+        console.log('ArrayFromSet:',arr);
+
+        let messages = [
+            {text: "Hello", from: "John"},
+            {text: "How goes?", from: "John"},
+            {text: "See you soon", from: "Alice"}
+        ];
+
+        let readMap = new WeakMap();
+
+        readMap.set(messages[0], new Date(2017, 1, 1));
+        console.log('weakset:',readMap.get(messages[0]));
+    }
 
     render() {
         const obj={a:1, a:2};// Not allowed. Key must be unique only the last assignment of the key will be accepted.
         this.testMap();
         this.arrySortWithUniqueKeys();
         this.testSet();
+        this.exerciseSet();
 
         return (
             <div>
