@@ -15,6 +15,7 @@ import Hero2 from './components/errorHandelingTest/Hero2'
 
 import AwaitAndPromise from './components/awaitÂndPromise/awaitAndPromise'
 
+import MapAndSet from './components/MapAndSet/MapAndSet'
 
 class App extends Component {
 
@@ -96,7 +97,8 @@ class App extends Component {
                 <hr/>
 
                 <AwaitAndPromise myref={this.bottomCompRef}/>
-
+                <hr/>
+                <MapAndSet />
                 <hr/>
                 <p ref={this.bottomRef}>I am Bottom</p>
             </div>
