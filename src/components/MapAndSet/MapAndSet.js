@@ -123,6 +123,7 @@ class MapAndSet extends Component {
 
         let set=new Set(values);
         let arr=Array.from(set);
+        //let arr=[...set]
         console.log('ArrayFromSet:',arr);
 
         let messages = [
@@ -139,10 +140,10 @@ class MapAndSet extends Component {
 
     render() {
         const obj={a:1, a:2};// Not allowed. Key must be unique only the last assignment of the key will be accepted.
-        this.testMap();
-        this.arrySortWithUniqueKeys();
-        this.testSet();
-        this.exerciseSet();
+        //this.testMap();
+        //this.arrySortWithUniqueKeys();
+        //this.testSet();
+        //this.exerciseSet();
 
         return (
             <div>

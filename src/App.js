@@ -48,23 +48,31 @@ class App extends Component {
 
  //we must use "componentDidUpdate" with it
     getSnapshotBeforeUpdate(prevProps, prevState) {
-      return  this.appBodyRef.current.scrollHeight-this.appBodyRef.current.scrollTop;
+      //return  this.appBodyRef.current.scrollHeight-this.appBodyRef.current.scrollTop;
+        const x=window.screenX;
+        const y=window.screenY;
+        return window.scrollY;//
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-      console.log('snapshot',snapshot)
+      console.log('snapshot',snapshot);
        // snapshot.focus()
-        this.appBodyRef.current.scrollTop=this.appBodyRef.current.scrollHeight-snapshot
+       // this.appBodyRef.current.scrollTop=this.appBodyRef.current.scrollHeight-snapshot
+       // window.scrollTo(0, 0);
+        window.scrollTo(0, snapshot)
     }
 
 
   render() {
+    //const container = document.querySelector('#container')// Will not work as this container is mounted in the virtual DOM.//We can select any element from the index.html with i
+     console.log(window)
+
     return (
         <SimpleHoc>
             <button onClick={()=>setTimeout(()=>this.forceUpdate(),2000)}>Force Update</button>
             <button onClick={this.goToBottom}>Go to Bottom</button>
             <hr/>
-            <div ref={this.appBodyRef}>
+            <div ref={this.appBodyRef} id="container">
                 <InfoViewer {...this.state} onChangeHandler={this.onChangeHandler}/>
 
                 <UpdateTestClass age={this.state.age}/>
@@ -78,7 +86,6 @@ class App extends Component {
                 <TestWrapperHoc {...this.state}/>
 
                 <hr/>
-
                 <ErrorBoundaryWrapper>
                     <Hero heroName={'Batman'}/>
                 </ErrorBoundaryWrapper>
