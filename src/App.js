@@ -8,6 +8,7 @@ import UpdateTestPureComp from './components/UpdateTestPureComp'
 import CompReturnArray from './components/CompReturnArray'
 import SimpleHoc from './hoc/simpleHoc'
 import TestWrapperHoc from './components/testWrapperHOC'
+import TestingThis from "./components/testingThis";
 
 import Hero from './components/errorHandelingTest/Hero'
 import ErrorBoundaryWrapper from './hoc/ErrorBoundaryWrapper'
@@ -16,6 +17,7 @@ import Hero2 from './components/errorHandelingTest/Hero2'
 import AwaitAndPromise from './components/awaitÂndPromise/awaitAndPromise'
 
 import MapAndSet from './components/MapAndSet/MapAndSet'
+
 
 class App extends Component {
 
@@ -106,6 +108,8 @@ class App extends Component {
                 <AwaitAndPromise myref={this.bottomCompRef}/>
                 <hr/>
                 <MapAndSet />
+                 <hr/>
+                <TestingThis />
                 <hr/>
                 <p ref={this.bottomRef}>I am Bottom</p>
             </div>
